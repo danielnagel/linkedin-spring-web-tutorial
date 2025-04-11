@@ -1,5 +1,7 @@
 package linkedin.web;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,23 +23,28 @@ public class DirtySecretsRestController {
     private DirtySecretsRepository repository;
 
     @GetMapping("/count")
-    public int count() {
+    public long count() {
         return this.repository.count();
     }
 
+    @GetMapping
+    public Iterable<DirtySecret> get() {
+        return this.repository.findAll();
+    }
+
     @GetMapping("/e1/{id}")
-    public DirtySecret getByIdE1(@PathVariable("id") String id) {
-        return this.repository.getById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Secret not found"));
+    public DirtySecret getByIdE1(@PathVariable("id") UUID id) {
+        return this.repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Secret not found"));
     }
 
     @GetMapping("/e2/{id}")
-    public DirtySecret getByIdE2(@PathVariable("id") String id) {
-        return this.repository.getById(id).orElseThrow(() -> new NoSecretFoundWebException());
+    public DirtySecret getByIdE2(@PathVariable("id") UUID id) {
+        return this.repository.findById(id).orElseThrow(() -> new NoSecretFoundWebException());
     }
 
     @GetMapping("/e3/{id}")
-    public DirtySecret getByIdE3(@PathVariable("id") String id) {
-        return this.repository.getById(id).orElseThrow(() -> new NoSecretFoundException());
+    public DirtySecret getByIdE3(@PathVariable("id") UUID id) {
+        return this.repository.findById(id).orElseThrow(() -> new NoSecretFoundException());
     }
 
     @ExceptionHandler(NoSecretFoundException.class)
