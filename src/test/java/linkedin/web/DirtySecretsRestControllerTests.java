@@ -3,6 +3,9 @@ package linkedin.web;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+
+import java.util.UUID;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,7 +26,7 @@ public class DirtySecretsRestControllerTests {
 
     @Test
     public void shouldSaveSecrets() throws Exception {
-        DirtySecret secret = new DirtySecret("test-123", "Doug", "Ex Alcoholic");
+        DirtySecret secret = new DirtySecret(UUID.randomUUID(), "Doug", "Ex Alcoholic");
         when(repository.save(any(DirtySecret.class))).thenReturn(secret);
 
         this.mockMvc.perform(

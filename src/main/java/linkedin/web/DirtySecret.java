@@ -1,5 +1,7 @@
 package linkedin.web;
 
+import java.util.UUID;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,13 +12,13 @@ public class DirtySecret {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+  private UUID id;
 
   private String name;
 
   private String secret;
 
-  public DirtySecret(String id, String name, String secret) {
+  public DirtySecret(UUID id, String name, String secret) {
     this.id = id;
     this.name = name;
     this.secret = secret;
@@ -26,11 +28,11 @@ public class DirtySecret {
     //TODO Auto-generated constructor stub
 }
 
-  public String getId() {
+  public UUID getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(UUID id) {
     this.id = id;
   }
 
